@@ -1,7 +1,18 @@
 batchemailer
 ============
 
-Simple script to send batch emails
+Simple script to send batch emails.
+
+Notes:
+* Emails are currently only in text format
+* SMTP is currently hard-coded to use gmail
+* Script currently requires that you have a cc email address
+* "Special" param {{first_name}} depends on there being a {{email_name}} column in recipients.txt
+
+Features:
+* You can use template fields in both the subject and the body
+* Can send test emails to yourself by setting PREVIEW_MODE to true
+* Can send to multiple people in the To field
 
 ============================ SETUP ============================
 

@@ -4,7 +4,7 @@ import sys
 PREVIEW_MODE = False
 
 # if PREVIEW_MODE is True, the email receipient is replaced with PREVIEW_EMAILS
-PREVIEW_EMAILS =['celiala456@gmail.com']
+PREVIEW_EMAILS =['!!your email address!!']
 
 # SMTP settings
 SMTP_SERVER = 'smtp.gmail.com:587'

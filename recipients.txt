@@ -1,2 +1,0 @@
-company_name|email_name|email
-Your Company    | Your Name, Friend's Name  |  you@company.com,your_buddy@company.com

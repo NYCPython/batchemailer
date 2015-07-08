@@ -1,67 +1,55 @@
 batchemailer
 ============
 
-Simple script to send batch emails.
+Simple script to batch send text emails.
 
-Notes:
-* Emails are currently only in text format
-* SMTP is currently hard-coded to use gmail
-* Script currently requires that you have a cc email address
-* "Special" param {{first_name}} depends on there being a {{email_name}} column in recipients.txt
+How to use
+==========
+Calling:
 
-Features:
-* You can use template fields in both the subject and the body
-* Can send test emails to yourself by setting PREVIEW_MODE to true
-* Can send to multiple people in the To field
+	unix% python send.py my-folder
 
-============================ SETUP ============================
+will send to all emails specified in the my-folder/recipients.tsv, using
+my-folder/body.txt and my-folder/subject.txt as your body and subject template.
 
-1) config.py should have the following set:
+In order to send, you'll need to confirm each one by typing 'y'.
 
-	PREVIEW_MODE 	- if set to True, then script will replace the emails listed in
-					  recipients.tab with the emails listed in PREVIEW_EMAILS
-	PREVIEW_EMAILS	- dummy emails used to send emails in preview (test) mode
+How it works
+============
 
-	SMTP_EMAIL	 	- the email you'll use to authenticate to the SMTP server
-	SMTP_PWD	 	- your email password
-	MSG_FROM	 	- for the email that gets sent, this will be the "To"
-	MSG_CC			- for the email that gets sent, this will be the "Cc". Note that a
-					  cc is currently required.
+The scripts looks for double-bracketed params ({{sender_name}}) in body.txt and subject.txt
+and replace it with values found in either recipients.tsv or EXTRA_PARAM_KEYS (in config.py).
 
-	MSG_SUBJECT 	- Subject for you email. This can use {{params}} (see note below)
-	MSG_KEYS		- contains values for {{params}} [not specified via recipients.tab]
+The script expects recipients.tsv to be a tab-delimited file:
+	- It expects an 'email' column, which will be the email recipient.
+	- 'email' can contain multiple emails, separated by commas.
+	- if a 'cc' column is found, these emails get added to the CC field, along with any emails
+	  specified in MSG_CC (config.py).
 
-2) recipients.tab 	- a pipe delimited file mailing list values.
-					
-					** Required Fields **
+Step 1: configure config.py
+===========================
+Open config.py and set the following:
 
-					The following entries are required:
-						email 		- comma-delimited list of emails to send to
-						email_name 	- comma-delmited list of Full Names corresponding 
-									  to the email list above
+SMTP_SERVER - should be your smtp server
+SMTP_EMAIL - replace with your email address
+SMTP_PWD - replace with your email password
 
-					Any other fields that you add can be used to replace any
-					{{params}} in the email body or subject
+MSG_FROM - what will be displayed in the From field
+MSG_CC - list of emails to be included in the CC field. Note that additional CC recipients can also
+	be specified in FILENAME_RECIPIENTS_TSV.
 
-3) body.txt - email body (in text format)
+EXTRA_PARAM_KEYS['sender_name'] - set to your name, if your body template contains {{sender_name}}
 
-4) {{params}}	- params (denoted like {{this}}) can be placed anywhere in
-				  the config.MSG_SUBJECT or body.txt.
+	== Optional ==
+	There is a PREVIEW_MODE setting, which if set to True, will send your emails to those listed
+	in PREVIEW_EMAILS, instead of your real recipients in FILENAME_RECIPIENTS_TSV
 
-				- if a {{param}} is found, the script looks to see if this is
-				  defined in:
-				  1) recipients.tab
-				  2) config.MSG_KEYS
+Step 2: add data to recipients.tsv
+==================================
+The script recipients.tsv to be a tab-delimited file. It expects an 'email' column, which will
+be the email recipient. 'email' can contain multiple emails, separated by commas. Add any other
+columns that you want to use as params in either the body or subject templates.
 
-				** Special Keys **
-
-				{{first_name}} - will take the first name from email_name
-								 specified in recipients.tab. If there are 
-								 multiple emails, the first_name will be a 
-								 comma-delimited list of those first names
-
-============================ EXECUTION ============================
-
-1) set PREVIEW_MODE (as well as the other variables) in config.py
-2) to run: python send.py
-	- in order to send, you'll need to confirm each one by typing 'y'
+Step 3: tweak body.txt and subject.txt as needed
+================================================
+Denote any params you want to use with double-brackets: {{my-param}}

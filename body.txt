@@ -1,6 +1,0 @@
-Hi {{first_name}} -
-
-Thank you to {{company_name}} for sponsoring PyGotham 2014. We hope you'll continue to sponsor us for PyGotham 2015!
-
-Thanks,
-{{sender_name}}

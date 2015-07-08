@@ -1,0 +1,5 @@
+company_name	first_names	email	custom_message	cc
+NEW	FIRST NAMES	"Foo, Bar" <fake@fake-domain.com>, "Two, Three" <also-fake@fake-domain.com>	Custom foo foo foo.	Other Person <person-to-cc@your-company.com>
+Foo Two	Foo, One	Foo Bar <foo@bar.com>,  One Two Three <one@two.three.com>	Custom foo two.
+Two Three	Two	Three, Two <three@two.com>	Custom two three!
+Three people	Foo, One, Four	Foo Bar <foo@bar.com>,  One Two Three <one@two.three.com>, Four Five <four@five.com>,	Custom for all three of you!!!

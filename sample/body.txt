@@ -1,8 +1,0 @@
-Hi {{first_names}} -
-
-I think you work at {{company_name}}.
-
-{{custom_message}}
-
-Best regards,
-{{sender_name}}
